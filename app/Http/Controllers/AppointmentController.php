@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
@@ -15,19 +16,9 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::all();
-        $arrAppointment = [];
+         $appointments = Appointment::all();
 
-        foreach ($appointments as $appointment) {
-            $arrAppointment[] = [
-                'id' => $appointment->id,
-                'type_service' => $appointment->type_service,
-                'date_appointment' => $appointment->date_appointment,
-                'pet' => $appointment->pet,
-                'branch' => $appointment->branch,
-            ];
-        }
-        return response()->json($arrAppointment);
+        return response()->json($appointments);
     }
 
     /**
@@ -49,10 +40,11 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         $appointment = new Appointment();
-        $appointment->type_service = $request->type_service;
         $appointment->date_appointment = $request->date_appointment;
         $appointment->pet_id = $request->pet_id;
         $appointment->branch_id = $request->branch_id;
+        $appointment->service_id = $request->service_id;
+        $appointment->customer_id = $request->customer_id;
         $appointment->save();
 
         $data = [
@@ -94,8 +86,12 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        $appointment->type_service = $request->type_service;
+        $appointment = Appointment::findOrFail($appointment);
         $appointment->date_appointment = $request->date_appointment;
+        $appointment->pet_id = $request->pet_id;
+        $appointment->branch_id = $request->branch_id;
+        $appointment->service_id = $request->service_id;
+        $appointment->customer_id = $request->customer_id;
         $appointment->save();
 
         $data = [
@@ -124,7 +120,7 @@ class AppointmentController extends Controller
         return response()->json($data);
     }
 
-
+    /*
     public function customers(Request $request)
     {
         $appointment = Appointment::find($request->appointment_id);
@@ -136,16 +132,16 @@ class AppointmentController extends Controller
 
         return response()->json($data);
     }
-
-    public function attach(Request $request)
+ */
+    /*   public function attach(Request $request)
     {
-        $appointment = Appointment::find($request->pet_id);
-        $appointment->pet()->attach($request->pet_id);
+        $appointment = Appointment::find($request->appointment_id);
+        $appointment->service()->attach($request->service_id);
         $data = [
             "message" => "Customer attached successfully",
             "appointment" => $appointment
         ];
 
         return response()->json($data);
-    }
+    } */
 }

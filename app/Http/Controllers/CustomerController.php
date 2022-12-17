@@ -15,23 +15,10 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        $arrCustomer = [];
 
-        foreach ($customers as $customer) {
-            $arrCustomer[] = [
-                'id' => $customer->id,
-                'name' => $customer->name,
-                'dui' => $customer->dui,
-                'birthday' => $customer->birthday,
-                'phone' => $customer->phone,
-                'email' => $customer->email,
-                'appointment' => $customer->appointment,
 
-            ];
-        }
-        return response()->json($arrCustomer);
 
-        //return response()->json($customers);
+        return response()->json($customers);
     }
 
     /**
@@ -76,13 +63,9 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        $data = [
-            "message" => "Detalles Clientes",
-            "customer" => $customer,
-            "appointment" => $customer->appointment
-        ];
 
-        return response()->json($data);
+
+        return response()->json($customer);
     }
 
     /**
@@ -137,7 +120,7 @@ class CustomerController extends Controller
 
         return response()->json($data);
     }
-
+/*
     public function attach(Request $request)
     {
         $customer = Customer::find($request->customer_id);
@@ -159,5 +142,5 @@ class CustomerController extends Controller
         ];
 
         return response()->json($data);
-    }
+    } */
 }

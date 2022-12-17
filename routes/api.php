@@ -4,8 +4,11 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PetController;
+use App\Http\Controllers\ServiceController;
+
 use App\Models\Appointment;
-use App\Models\Pet;
+use App\Models\Service;
+use App\Models\TypeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,8 +52,14 @@ Route::put("/pets/{pet}", [PetController::class, "update"]);
 Route::get("/pets/{pet}", [PetController::class, "show"]);
 Route::delete("/pets/{pet}", [PetController::class, "destroy"]);
 
-Route::post("/appointments/pets", [Appointment::class, "attach"]);
+Route::get("/services", [ServiceController::class, "index"]);
+Route::post("/services", [ServiceController::class, "store"]);
+Route::put("/services/{service}", [ServiceController::class, "update"]);
+Route::get("/services/{service}", [ServiceController::class, "show"]);
+Route::delete("/services/{service}", [ServiceController::class, "destroy"]);
 
-Route::post("/customers/appointments", [CustomerController::class, "attach"]);
+/* Route::post("/appointments/services", [AppointmentController::class, "attach"]); */
+
+/*Ro ute::post("/customers/appointments", [CustomerController::class, "attach"]);
 Route::post("/customers/appointments/detach", [CustomerController::class, "detach"]);
-Route::post("/appointments/custormers", [AppointmentController::class, "customers"]);
+Route::post("/appointments/custormers", [AppointmentController::class, "customers"]); */

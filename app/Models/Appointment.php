@@ -11,8 +11,9 @@ class Appointment extends Model
 
     public function customer()
     {
-        return $this->belongsToMany(Customer::class, "customers_appointments");
+        return $this->belongsTo(Customer::class);
     }
+
 
     public function pet()
     {
@@ -22,5 +23,11 @@ class Appointment extends Model
     public function branch()
     {
         return $this->belongsTo(Branch::class);
+    }
+
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 }
